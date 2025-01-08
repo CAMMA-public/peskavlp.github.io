@@ -50,7 +50,7 @@
         <div class="container is-max-desktop">
             <div class="columns is-centered">
                 <div class="column has-text-centered">
-                    <h1 class="title is-1 publication-title">CheXagent: Towards a Foundation Model for Chest X-Ray Interpretation</h1>
+                    <h1 class="title is-1 publication-title">Procedure-Aware Surgical Video-language Pretraining with Hierarchical Knowledge Augmentation</h1>
                     <div class="is-size-5 publication-authors">
                         <!-- Paper authors -->
                         <span class="author-block"><a href="https://flaick.github.io/" target="_blank">Kun Yuan</a>,</span>
@@ -102,7 +102,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="static-peskavlp/images/demo_peskavlp.gif" alt="CheXagent Demo GIF" height="100%">
+      <img src="static-peskavlp/images/demo_peskavlp.gif" alt="PeskaVLP Demo GIF" height="100%">
       <h2 class="subtitle has-text-centered">
           A simple GIF demonstrates the discrimination and generative tasks that PeskaVLP can do related to laparoscopic surgical images. Please refer to our paper for more details.
       </h2>
@@ -120,7 +120,7 @@
                 <h2 class="title is-3">Abstract</h2>
                 <div class="content has-text-justified">
                     <p>
-                        Chest X-rays (CXRs) are the most frequently performed imaging test in clinical practice. Recent advances in the development of vision-language foundation models (FMs) give rise to the possibility of performing automated CXR interpretation, which can assist physicians with clinical decision-making and improve patient outcomes. However, developing FMs that can accurately interpret CXRs is challenging due to the (1) limited availability of large-scale vision-language datasets in the medical image domain, (2) lack of vision and language encoders that can capture the complexities of medical data, and (3) absence of evaluation frameworks for benchmarking the abilities of FMs on CXR interpretation. In this work, we address these challenges by first introducing CheXinstruct - a large-scale instruction-tuning dataset curated from 28 publicly-available datasets. We then present CheXagent - an instruction-tuned FM capable of analyzing and summarizing CXRs. To build CheXagent, we design a clinical large language model (LLM) for parsing radiology reports, a vision encoder for representing CXR images, and a network to bridge the vision and language modalities. Finally, we introduce CheXbench - a novel benchmark designed to systematically evaluate FMs across 8 clinically-relevant CXR interpretation tasks. Extensive quantitative evaluations and qualitative reviews with five expert radiologists demonstrate that CheXagent outperforms previously-developed general- and medical-domain FMs on CheXbench tasks. Furthermore, in an effort to improve model transparency, we perform a fairness evaluation across factors of sex, race and age to highlight potential performance disparities. The figure below shows the overview of the proposed pipeline.
+                        Surgical video-language pretraining (VLP) faces unique challenges due to the knowledge domain gap and the scarcity of multi-modal data. This study aims to bridge the gap by addressing issues regarding textual information loss in surgical lecture videos and the spatial-temporal challenges of surgical VLP. We propose a hierarchical knowledge augmentation approach and a novel Procedure-Encoded Surgical Knowledge-Augmented Video-Language Pretraining (PeskaVLP) framework to tackle these issues. The knowledge augmentation uses large language models (LLM) for refining and enriching surgical concepts, thus providing comprehensive language supervision and reducing the risk of overfitting. PeskaVLP combines language supervision with visual self-supervision, constructing hard negative samples and employing a Dynamic Time Warping (DTW) based loss function to effectively comprehend the cross-modal procedural alignment. Extensive experiments on multiple public surgical scene understanding and cross-modal retrieval datasets show that our proposed method significantly improves zero-shot transferring performance and offers a generalist visual representation for further advancements in surgical scene understanding.
                     </p>
                     <figure>
                         <img src="static-peskavlp/images/overview.jpg" alt="Overview" class="center-image blend-img-background">
@@ -132,87 +132,62 @@
 </section>
 <!-- End paper abstract -->
 
-<!-- CheXinstruct -->
+<!-- SVL-Pretrain -->
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.14.0/gradio.js"></script>
 <section class="section hero">
     <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Data: CheXinstruct</h2>
+                <h2 class="title is-3">Data: SVL-Pretrain</h2>
                 <div class="content has-text-justified">
                     <p>
-                        We introduce CheXinstruct - a large-scale instruction-tuning dataset curated from 28 publicly-available datasets. The figure below shows the collection of datasets and tasks comprising CheXinstruct.
+                        We review the previous surgical video-language pretraining dataset SVL-Pretrain, firstly proposed in SurgVLP [1].
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/chexinstruct.jpg" alt="CheXinstruct" class="center-image blend-img-background">
-                    </figure>
-                    <p>
-                        You can explore the samples of CheXinstruct in the following demo, where three samples are shown for each task.
-                    </p>
-                    <gradio-app space="https://stanfordaimi-chexinstruct.hf.space" eager="true"></gradio-app>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End CheXinstruct -->
-
-<!-- CheXbench -->
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.14.0/gradio.js"></script>
-<section class="section hero is-light">
-    <div class="container is-max-desktop">
-        <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <h2 class="title is-3">Model: CheXagent</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        We then present CheXagent - an instruction-tuned FM capable of analyzing and summarizing CXRs. The figure below shows the four-stage training process of CheXagent, starting from adapting a general LLM for clinical use, through training a CXR vision encoder and a vision-language bridger, to the final stage of instruction tuning on diverse CXR tasks.
-                    </p>
-                    <figure>
-                        <img src="static-peskavlp/images/chexagent.png" alt="CheXbench" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/SVL-Pretrain.png" alt="SVL_Pretrain" class="center-image blend-img-background">
                     </figure>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End CheXbench -->
+<!-- End SVL-Pretrain -->
 
-<!-- CheXbench -->
+<!-- PeskaVLP -->
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.14.0/gradio.js"></script>
 <section class="section hero">
     <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Evaluation: CheXbench</h2>
+                <h2 class="title is-3">Pretraining: PeskaVLP</h2>
                 <div class="content has-text-justified">
                     <p>
-                        We introduce CheXbench - a novel benchmark designed to systematically evaluate FMs across 8 clinically-relevant CXR interpretation tasks. The following table shows the results of CheXbench for tasks associated with image perception comparing CheXagent with general domain and medical domain FMs on several CXR datasets. For each task, we report accuracy.
+                        We perform the hierarchical video-language as HecVL [2] did.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/chexbench.png" alt="CheXbench" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/hierarchical-pretrain.png" alt="PeskaVLP" class="center-image blend-img-background">
                     </figure>
                     <p>
-                        We show results from automated evaluations using GPT-4 for findings generation. The figure below shows the results of GPT-4 evaluations, which demonstrates that the reports generated by CheXagent outperform medical-domain FMs for the findings generation task on MIMIC-CXR.
+                        At clip-level, we perform augmentations.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/gpt4_evaluation.jpg" alt="CheXbench" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/clip-level.jpg" alt="PeskaVLP" class="center-image blend-img-background">
                     </figure>
                     <p>
-                        We conduct a reader study in which five radiologists compare text generated by CheXagent against text written by a physician. The figure below shows the corresponding results.
+                        At phase- and video-level, we perform procedure understanding.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/human_evaluation.png" alt="CheXbench" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/phase-video-level.png" alt="PeskaVLP" class="center-image blend-img-background">
                     </figure>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End CheXbench -->
+<!-- End PeskaVLP -->
 
 
-<!-- CheXbench -->
+<!-- Zeroshot -->
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.14.0/gradio.js"></script>
 <section class="section hero is-light">
     <div class="container is-max-desktop">
@@ -221,29 +196,28 @@
                 <h2 class="title is-3">Fairness Evaluation</h2>
                 <div class="content has-text-justified">
                     <p>
-                        Furthermore, in an effort to improve model transparency, we perform a fairness evaluation across factors of sex, race and age to highlight potential performance disparities. The figure below shows the performance of CheXagent subgroup performance on cardiomegaly classification investigating potential model biases. F1 Scores vary across sex, racial groups, and age categories.
+                        We conduct the zeroshot evaluation on multiple datasets
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/fairness_evaluation.png" alt="CheXbench" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/zeroshot.png" alt="Zeroshot" class="center-image blend-img-background">
                     </figure>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- End CheXbench -->
+<!-- End Zeroshot -->
 
 
 <!--BibTex citation -->
 <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
         <h2 class="title">BibTeX</h2>
-        <pre><code>@article{stanford-aimi-chexagent-2024,
-    title={CheXagent: Towards a Foundation Model for Chest X-Ray Interpretation},
-    author={Chen, Zhihong and Varma, Maya and Delbrouck, Jean-Benoit and Paschali, Magdalini and Blankemeier, Louis and Veen, Dave Van and Valanarasu, Jeya Maria Jose and Youssef, Alaa and Cohen, Joseph Paul and Reis, Eduardo Pontes and Tsai, Emily B. and Johnston, Andrew and Olsen, Cameron and Abraham, Tanishq Mathew and Gatidis, Sergios and Chaudhari, Akshay S and Langlotz, Curtis},
-    journal={arXiv preprint arXiv:2401.12208},
-    url={https://arxiv.org/abs/2401.12208},
-    year={2024}
+        <pre><code>@article{yuan2024procedure,
+  title={Procedure-Aware Surgical Video-language Pretraining with Hierarchical Knowledge Augmentation},
+  author={Yuan, Kun and Srivastav, Vinkle and Navab, Nassir and Padoy, Nicolas},
+  journal={arXiv preprint arXiv:2410.00263},
+  year={2024}
 }</code></pre>
     </div>
 </section>
