@@ -54,9 +54,9 @@
                     <div class="is-size-5 publication-authors">
                         <!-- Paper authors -->
                         <span class="author-block"><a href="https://flaick.github.io/" target="_blank">Kun Yuan</a>,</span>
-                        <span class="author-block"><a href="https://www.linkedin.com/in/vinkle-srivastav/" target="_blank">Vinkle Srivastav </a>,</span>
-                        <span class="author-block"><a href="https://camma.unistra.fr/npadoy/" target="_blank">Nicolas Padoy </a>,</span>
-                        <span class="author-block"><a href="https://www.professoren.tum.de/en/navab-nassir" target="_blank">Nassir Navab </a>,</span>
+                        <span class="author-block"><a href="https://www.linkedin.com/in/vinkle-srivastav/" target="_blank">Vinkle Srivastav</a>,</span>
+                        <span class="author-block"><a href="https://camma.unistra.fr/npadoy/" target="_blank">Nicolas Padoy</a>,</span>
+                        <span class="author-block"><a href="https://www.professoren.tum.de/en/navab-nassir" target="_blank">Nassir Navab</span>
 
                     </div>
 
@@ -123,7 +123,7 @@
                         Surgical video-language pretraining (VLP) faces unique challenges due to the knowledge domain gap and the scarcity of multi-modal data. This study aims to bridge the gap by addressing issues regarding textual information loss in surgical lecture videos and the spatial-temporal challenges of surgical VLP. We propose a hierarchical knowledge augmentation approach and a novel Procedure-Encoded Surgical Knowledge-Augmented Video-Language Pretraining (PeskaVLP) framework to tackle these issues. The knowledge augmentation uses large language models (LLM) for refining and enriching surgical concepts, thus providing comprehensive language supervision and reducing the risk of overfitting. PeskaVLP combines language supervision with visual self-supervision, constructing hard negative samples and employing a Dynamic Time Warping (DTW) based loss function to effectively comprehend the cross-modal procedural alignment. Extensive experiments on multiple public surgical scene understanding and cross-modal retrieval datasets show that our proposed method significantly improves zero-shot transferring performance and offers a generalist visual representation for further advancements in surgical scene understanding.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/overview.jpg" alt="Overview" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/overview.png" alt="Overview" class="center-image blend-img-background">
                     </figure>
                 </div>
             </div>
@@ -141,10 +141,16 @@
                 <h2 class="title is-3">Data: SVL-Pretrain</h2>
                 <div class="content has-text-justified">
                     <p>
-                        We review the previous surgical video-language pretraining dataset SVL-Pretrain, firstly proposed in SurgVLP [1].
+                        We adopt the previous surgical video-language pretraining dataset SVL-Pretrain, first proposed by <a href="https://arxiv.org/abs/2307.15220" target="_blank">SurgVLP</a>. SVL-Pretrain dataset includes thousands of video-text pairs from surgical lecture videos' audio, metadata.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/SVL-Pretrain.png" alt="SVL_Pretrain" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/svl_pretrain.png" alt="SVL_Pretrain" class="center-image blend-img-background">
+                    </figure>
+                    <p>
+                        We perform text augmentations to summarize/explain/correct the abstract/keystep/narration texts based on the large language model's knowledge.
+                    </p>
+                    <figure>
+                        <img src="static-peskavlp/images/rewrite.png" alt="Rewrite" class="center-image blend-img-background">
                     </figure>
                 </div>
             </div>
@@ -162,22 +168,16 @@
                 <h2 class="title is-3">Pretraining: PeskaVLP</h2>
                 <div class="content has-text-justified">
                     <p>
-                        We perform the hierarchical video-language as HecVL [2] did.
+                        We perform the hierarchical video-language as <a href="https://arxiv.org/abs/2405.10075" target="_blank">HecVL</a> did. We adopt a hierarchical video-language pretraining approach, alternating between video-narration, video-keystep, and video-abstract pairs. Video-narration pairs provide detailed contextual understanding, video-keystep pairs focus on critical procedural actions, and video-abstract pairs offer high-level overviews. This strategy ensures the model captures both fine-grained details and broader contexts, enhancing its performance across various video-language tasks.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/hierarchical-pretrain.png" alt="PeskaVLP" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/hecvl.png" alt="hierarchical_pretrain" class="center-image blend-img-background">
                     </figure>
                     <p>
-                        At clip-level, we perform augmentations.
+                        At the clip level, we apply augmentations to enhance data diversity and robustness. At the phase and video levels, we focus on procedure understanding, enabling the model to capture and interpret the sequential and hierarchical structure of the entire procedure.
                     </p>
                     <figure>
-                        <img src="static-peskavlp/images/clip-level.jpg" alt="PeskaVLP" class="center-image blend-img-background">
-                    </figure>
-                    <p>
-                        At phase- and video-level, we perform procedure understanding.
-                    </p>
-                    <figure>
-                        <img src="static-peskavlp/images/phase-video-level.png" alt="PeskaVLP" class="center-image blend-img-background">
+                        <img src="static-peskavlp/images/pipeline.png" alt="pipeline" class="center-image blend-img-background">
                     </figure>
                 </div>
             </div>
@@ -193,10 +193,10 @@
     <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
-                <h2 class="title is-3">Fairness Evaluation</h2>
+                <h2 class="title is-3">Zero Shot Evaluation</h2>
                 <div class="content has-text-justified">
                     <p>
-                        We conduct the zeroshot evaluation on multiple datasets
+                        Zero-shot phase recognition results. We report Accuracy / F1-Score. PeskaVLP outperforms the other methods across different tasks. We report the state-of-the-art methods that are fine-tuned on the downstream dataset in a fully-supervised manner. However, models fine-tuned on specific downstream datasets show limited generalizability across procedures and institutions.
                     </p>
                     <figure>
                         <img src="static-peskavlp/images/zeroshot.png" alt="Zeroshot" class="center-image blend-img-background">
